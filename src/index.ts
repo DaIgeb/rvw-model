@@ -1,5 +1,5 @@
-import * as fromRoute from "./route";
 import * as fromLocation from "./location";
+import * as fromRoute from "./route";
 
-export const route = fromRoute;
 export const location = fromLocation;
+export const route = fromRoute;

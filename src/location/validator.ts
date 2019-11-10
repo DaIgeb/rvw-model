@@ -1,16 +1,32 @@
-import * as Ajv from 'ajv';
-import { schema, Model } from './model';
+import * as fromAjv from "ajv";
 
-const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-export const validator = ajv.compile(schema);
+import { ILogger } from "../base";
+import { Model, schema } from './model';
 
-export function validate(obj: any): obj is Model {
-  var valid = validator(obj);
+let ajv: fromAjv.Ajv;
+let validator: fromAjv.ValidateFunction;
+
+export const validate = (obj: any, logger?: ILogger): obj is Model => {
+  if (!obj || typeof obj !== 'object') {
+    if (logger) {
+      logger.error('Not an object');
+    }
+    return false;
+  }
+  if (!ajv) {
+    ajv = new fromAjv(); // options can be passed, e.g. {allErrors: true}
+    validator = ajv.compile(schema);
+  }
+
+  const valid = validator(obj);
+
   if (!valid) {
-    console.error(validator.errors);
+    if (logger) {
+      logger.error(validator.errors);
+    }
 
     return false;
   }
 
   return true;
-}
+};
