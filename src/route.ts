@@ -66,15 +66,18 @@ const schema = {
 let ajv: fromAjv.Ajv;
 let validator: fromAjv.ValidateFunction;
 
-export const validate = (obj: any, logger: ILogger): obj is IDetail => {
+export const validate = (obj: any, logger?: ILogger): obj is IDetail => {
   if (!ajv) {
     ajv = new fromAjv(); // options can be passed, e.g. {allErrors: true}
     validator = ajv.compile(schema);
   }
 
   const valid = validator(obj);
+
   if (!valid) {
-    logger.error(validator.errors);
+    if (logger) {
+      logger.error(validator.errors);
+    }
 
     return false;
   }
