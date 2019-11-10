@@ -67,9 +67,9 @@ let ajv: fromAjv.Ajv;
 let validator: fromAjv.ValidateFunction;
 
 export const validate = (obj: any, logger?: ILogger): obj is IDetail => {
-  if (!obj || typeof obj !== 'object') {
+  if (!obj || typeof obj !== "object") {
     if (logger) {
-      logger.error('Not an object');
+      logger.error("Not an object");
     }
     return false;
   }

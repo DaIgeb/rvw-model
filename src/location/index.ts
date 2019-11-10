@@ -1,2 +1,2 @@
-export { validate } from './validator';
-export { Model } from './model';
+export { validate } from "./validator";
+export { Model } from "./model";
