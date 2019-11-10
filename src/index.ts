@@ -1,1 +1,3 @@
-export const test = () => console.log("Hello World");
+import * as fromRoute from "./route";
+
+export const route = fromRoute;
