@@ -1,5 +1,5 @@
 import * as fromAjv from "ajv";
-import { ILogger } from "./base";
+import { ILogger } from "../base";
 
 export interface IList {
   id: string;
@@ -67,9 +67,9 @@ let ajv: fromAjv.Ajv;
 let validator: fromAjv.ValidateFunction;
 
 export const validate = (obj: any, logger?: ILogger): obj is IDetail => {
-  if (!obj || typeof obj !== "object") {
+  if (!obj || typeof obj !== 'object') {
     if (logger) {
-      logger.error("Not an object");
+      logger.error('Not an object');
     }
     return false;
   }
