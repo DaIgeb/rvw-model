@@ -3,17 +3,17 @@ export const names = {
   singular: 'location'
 };
 
-type Position = {
+interface IPosition {
   type: 'position';
 }
-type Restaurant = {
+interface IRestaurant {
   type: 'restaurant';
-  timelines: {
+  timelines: Array<{
     from: string;
     until?: string;
     notes?: string;
     phone?: string;
-    businessHours: {
+    businessHours: Array<{
       from: string;
       until: string;
       weekday:
@@ -24,8 +24,8 @@ type Restaurant = {
       | 'Friday'
       | 'Saturday'
       | 'Sunday';
-    }[];
-  }[];
+    }>;
+  }>;
 }
 
 export type Model = {
@@ -42,39 +42,32 @@ export type Model = {
   user: string;
   createdAt: string;
   updatedAt: string;
-} & (Restaurant | Position);
+} & (IRestaurant | Position);
 
+/* tslint:disable */
 export const schema = {
+  additionalProperties: false,
   properties: {
-    id: { type: 'string', format: 'uuid' },
-    name: { type: 'string' },
-    identifier: { type: 'string' },
-    street: { type: 'string' },
-    country: { type: 'string' },
-    zipCode: { type: 'string' },
     city: { type: 'string' },
-    longitude: { type: 'number' },
+    country: { type: 'string' },
+    id: { type: 'string', format: 'uuid' },
+    identifier: { type: 'string' },
     latitude: { type: 'number' },
-    type: { type: 'string', enum: ['position', 'restaurant'] },
+    longitude: { type: 'number' },
+    name: { type: 'string' },
+    street: { type: 'string' },
     timelines: {
-      type: 'array',
-      minItems: 1,
       items: {
-        title: 'Timelines',
-        type: 'object',
+        additionalProperties: false,
         properties: {
-          from: { type: 'string', format: 'date' },
-          until: { type: 'string', format: 'date' },
-          notes: { type: 'string' },
-          phone: { type: 'string' },
           businessHours: {
-            type: 'array',
             items: {
-              title: 'BusinessHours',
-              type: 'object',
+              additionalProperties: false
+              ,
               properties: {
+                from: { type: 'string', format: 'time' },
+                until: { type: 'string', format: 'time' },
                 weekday: {
-                  type: 'string',
                   enum: [
                     'Monday',
                     'Tuesday',
@@ -83,20 +76,35 @@ export const schema = {
                     'Friday',
                     'Saturday',
                     'Sunday'
-                  ]
-                },
-                from: { type: 'string', format: 'time' },
-                until: { type: 'string', format: 'time' }
+                  ],
+                  type: 'string',
+                  
+                }
               },
               required: ['weekday', 'from'],
-              additionalProperties: false
-            }
-          }
+              title: 'BusinessHours',
+              type: 'object',
+            },
+            type: 'array',
+
+          },
+          from: { type: 'string', format: 'date' },
+          notes: { type: 'string' },
+          phone: { type: 'string' },
+
+          until: { type: 'string', format: 'date' },
+
         },
         required: ['businessHours', 'from'],
-        additionalProperties: false
-      }
-    }
+        title: 'Timelines',
+        type: 'object',
+      },
+      minItems: 1,
+      type: 'array',
+    },
+    type: { type: 'string', enum: ['position', 'restaurant'] },
+    zipCode: { type: 'string' },
+
   },
   if: {
     properties: {
@@ -108,6 +116,6 @@ export const schema = {
   },
   else: {
     required: ['name', 'longitude', 'latitude', 'timelines']
-  },
-  additionalProperties: false
+  }
 };
+/* tslint:enable */
