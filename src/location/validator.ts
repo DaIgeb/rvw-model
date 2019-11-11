@@ -1,12 +1,12 @@
 import * as fromAjv from "ajv";
 
 import { ILogger } from "../base";
-import { Model, schema } from "./model";
+import { Detail, schema } from "./model";
 
 let ajv: fromAjv.Ajv;
 let validator: fromAjv.ValidateFunction;
 
-export const validate = (obj: any, logger?: ILogger): obj is Model => {
+export const validate = (obj: any, logger?: ILogger): obj is Detail => {
   if (!obj || typeof obj !== "object") {
     if (logger) {
       logger.error("Not an object");

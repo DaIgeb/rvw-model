@@ -3,32 +3,36 @@ export const names = {
   singular: 'location'
 };
 
-interface IPosition {
-  type: 'position';
-}
-interface IRestaurant {
-  type: 'restaurant';
-  timelines: Array<{
-    from: string;
-    until?: string;
-    notes?: string;
-    phone?: string;
-    businessHours: Array<{
-      from: string;
-      until: string;
-      weekday:
-      | 'Monday'
-      | 'Tuesday'
-      | 'Wednesday'
-      | 'Thursday'
-      | 'Friday'
-      | 'Saturday'
-      | 'Sunday';
-    }>;
-  }>;
+export interface IBusinessHour {
+  from: string;
+  until: string;
+  weekday:
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday';
 }
 
-export type Model = {
+export interface ITimeline {
+  from: string;
+  until?: string;
+  notes?: string;
+  phone?: string;
+  businessHours: IBusinessHour[];
+}
+
+export interface IPosition {
+  type: 'position';
+}
+export interface IRestaurant {
+  type: 'restaurant';
+  timelines: ITimeline[];
+}
+
+export interface IList {
   id: string;
   name: string;
   identifier: string;
@@ -39,10 +43,10 @@ export type Model = {
   city?: string;
   longitude: number;
   latitude: number;
-  user: string;
-  createdAt: string;
-  updatedAt: string;
-} & (IRestaurant | Position);
+  type: 'restaurant' | 'position';
+}
+
+export type Detail = IList & (IRestaurant | IPosition);
 
 /* tslint:disable */
 export const schema = {

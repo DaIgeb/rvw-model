@@ -1,2 +1,2 @@
 export { validate } from "./validator";
-export { Model } from "./model";
+export { IList as List, Detail, ITimeline, IBusinessHour } from "./model";
