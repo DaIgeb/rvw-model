@@ -1,19 +1,19 @@
 export const names = {
-  plural: 'locations',
-  singular: 'location'
+  plural: "locations",
+  singular: "location"
 };
 
 export interface IBusinessHour {
   from: string;
   until: string;
   weekday:
-  | 'Monday'
-  | 'Tuesday'
-  | 'Wednesday'
-  | 'Thursday'
-  | 'Friday'
-  | 'Saturday'
-  | 'Sunday';
+    | "Monday"
+    | "Tuesday"
+    | "Wednesday"
+    | "Thursday"
+    | "Friday"
+    | "Saturday"
+    | "Sunday";
 }
 
 export interface ITimeline {
@@ -25,10 +25,10 @@ export interface ITimeline {
 }
 
 export interface IPosition {
-  type: 'position';
+  type: "position";
 }
 export interface IRestaurant {
-  type: 'restaurant';
+  type: "restaurant";
   timelines: ITimeline[];
 }
 
@@ -43,7 +43,7 @@ export interface IList {
   city?: string;
   longitude: number;
   latitude: number;
-  type: 'restaurant' | 'position';
+  type: "restaurant" | "position";
 }
 
 export type Detail = IList & (IRestaurant | IPosition);
@@ -52,74 +52,69 @@ export type Detail = IList & (IRestaurant | IPosition);
 export const schema = {
   additionalProperties: false,
   properties: {
-    city: { type: 'string' },
-    country: { type: 'string' },
-    id: { type: 'string', format: 'uuid' },
-    identifier: { type: 'string' },
-    latitude: { type: 'number' },
-    longitude: { type: 'number' },
-    name: { type: 'string' },
-    street: { type: 'string' },
+    city: { type: "string" },
+    country: { type: "string" },
+    id: { type: "string", format: "uuid" },
+    identifier: { type: "string" },
+    latitude: { type: "number" },
+    longitude: { type: "number" },
+    name: { type: "string" },
+    street: { type: "string" },
     timelines: {
       items: {
         additionalProperties: false,
         properties: {
           businessHours: {
             items: {
-              additionalProperties: false
-              ,
+              additionalProperties: false,
               properties: {
-                from: { type: 'string', format: 'time' },
-                until: { type: 'string', format: 'time' },
+                from: { type: "string", format: "time" },
+                until: { type: "string", format: "time" },
                 weekday: {
                   enum: [
-                    'Monday',
-                    'Tuesday',
-                    'Wednesday',
-                    'Thursday',
-                    'Friday',
-                    'Saturday',
-                    'Sunday'
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
                   ],
-                  type: 'string',
-                  
+                  type: "string"
                 }
               },
-              required: ['weekday', 'from'],
-              title: 'BusinessHours',
-              type: 'object',
+              required: ["weekday", "from"],
+              title: "BusinessHours",
+              type: "object"
             },
-            type: 'array',
-
+            type: "array"
           },
-          from: { type: 'string', format: 'date' },
-          notes: { type: 'string' },
-          phone: { type: 'string' },
+          from: { type: "string", format: "date" },
+          notes: { type: "string" },
+          phone: { type: "string" },
 
-          until: { type: 'string', format: 'date' },
-
+          until: { type: "string", format: "date" }
         },
-        required: ['businessHours', 'from'],
-        title: 'Timelines',
-        type: 'object',
+        required: ["businessHours", "from"],
+        title: "Timelines",
+        type: "object"
       },
       minItems: 1,
-      type: 'array',
+      type: "array"
     },
-    type: { type: 'string', enum: ['position', 'restaurant'] },
-    zipCode: { type: 'string' },
-
+    type: { type: "string", enum: ["position", "restaurant"] },
+    zipCode: { type: "string" }
   },
   if: {
     properties: {
-      type: { enum: ['position'] }
+      type: { enum: ["position"] }
     }
   },
   then: {
-    required: ['name', 'longitude', 'latitude']
+    required: ["name", "longitude", "latitude"]
   },
   else: {
-    required: ['name', 'longitude', 'latitude', 'timelines']
+    required: ["name", "longitude", "latitude", "timelines"]
   }
 };
 /* tslint:enable */
