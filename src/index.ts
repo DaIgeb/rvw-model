@@ -1,5 +1,2 @@
-import * as fromLocation from "./location";
-import * as fromRoute from "./route";
-
-export const location = fromLocation;
-export const route = fromRoute;
+export { IList as ILocationList, validate as validateLocation, Detail as LocationDetail } from "./location";
+export { IList as IRouteList, validate as validateRoute, IDetail as IDetailRoute } from "./route";
