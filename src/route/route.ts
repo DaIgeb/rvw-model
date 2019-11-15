@@ -7,6 +7,11 @@ export interface IList {
   type: "route" | "startroute";
 }
 
+export interface IRouteFile {
+  path: string;
+  type: "gpx" | "kml" | "tcx";
+}
+
 export interface IDetail extends IList {
   timelines: ITimeline[];
 }
@@ -20,6 +25,7 @@ export interface ITimeline {
   startRoute?: string;
   locations: string[];
   restaurants?: string[];
+  files?: IRouteFile[];
 }
 
 const schema = {
@@ -33,6 +39,18 @@ const schema = {
           difficulty: { type: "string", enum: ["easy", "medium", "heavy"] },
           distance: { type: "number" },
           elevation: { type: "number" },
+          files: {
+            items: {
+              properties: {
+                path: { type: "string" },
+                type: { type: "string", enum: ["gpx", "tcx", "kml", "kmz"] }
+              },
+              required: ["type", "path"],
+              title: "RouteFile",
+              type: "object"
+            },
+            type: "array"
+          },
           from: { type: "string", format: "date" },
           locations: {
             items: {
