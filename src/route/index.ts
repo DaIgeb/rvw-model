@@ -1,1 +1,1 @@
-export { validate, IDetail, IList, ITimeline } from "./route";
+export { validate, IDetail, IList, ITimeline, findTimeline } from "./route";

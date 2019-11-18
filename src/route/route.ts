@@ -1,5 +1,15 @@
 import * as fromAjv from "ajv";
+import * as moment from 'moment';
+
 import { ILogger } from "../base";
+
+export function findTimeline(route: IDetail, from: string, until?: string): ITimeline | undefined {
+  const fromDate = moment(from);
+  const untilDate = moment(until || '2100-12-31');
+
+  const timeline = route.timelines.find(tl => moment(tl.from).diff(fromDate) <= 0 && (tl.until === undefined || moment(tl.until).diff(untilDate) >= 0));
+  return timeline;
+}
 
 export interface IList {
   id: string;
@@ -9,7 +19,7 @@ export interface IList {
 
 export interface IRouteFile {
   path: string;
-  type: "gpx" | "kml" | "tcx";
+  type: "gpx" | "kml" | "kmz" | "tcx";
 }
 
 export interface IDetail extends IList {
