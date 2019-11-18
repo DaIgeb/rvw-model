@@ -27,8 +27,10 @@ export interface IList {
 
 export interface IRouteFile {
   path: string;
-  type: "gpx" | "kml" | "kmz" | "tcx";
+  type: TFileTypes;
 }
+
+export type TFileTypes = "gpx" | "kml" | "kmz" | "tcx";
 
 export interface IDetail extends IList {
   timelines: ITimeline[];
@@ -44,6 +46,13 @@ export interface ITimeline {
   locations: string[];
   restaurants?: string[];
   files?: IRouteFile[];
+}
+
+export interface IAttachFileBody {
+  path: string;
+  type: TFileTypes;
+  from: string;
+  until?: string;
 }
 
 const schema = {

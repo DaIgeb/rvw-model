@@ -1,1 +1,9 @@
-export { validate, IDetail, IList, ITimeline, findTimeline } from "./route";
+export {
+  validate,
+  IDetail,
+  IList,
+  ITimeline,
+  findTimeline,
+  TFileTypes,
+  IAttachFileBody
+} from "./route";
