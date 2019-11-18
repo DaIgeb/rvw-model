@@ -1,13 +1,21 @@
 import * as fromAjv from "ajv";
-import * as moment from 'moment';
+import * as moment from "moment";
 
 import { ILogger } from "../base";
 
-export function findTimeline(route: IDetail, from: string, until?: string): ITimeline | undefined {
+export function findTimeline(
+  route: IDetail,
+  from: string,
+  until?: string
+): ITimeline | undefined {
   const fromDate = moment(from);
-  const untilDate = moment(until || '2100-12-31');
+  const untilDate = moment(until || "2100-12-31");
 
-  const timeline = route.timelines.find(tl => moment(tl.from).diff(fromDate) <= 0 && (tl.until === undefined || moment(tl.until).diff(untilDate) >= 0));
+  const timeline = route.timelines.find(
+    tl =>
+      moment(tl.from).diff(fromDate) <= 0 &&
+      (tl.until === undefined || moment(tl.until).diff(untilDate) >= 0)
+  );
   return timeline;
 }
 
