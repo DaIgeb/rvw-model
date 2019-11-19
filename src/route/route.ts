@@ -103,7 +103,10 @@ const schema = {
       minItems: 1,
       type: "array"
     },
-    type: { type: "string", enum: ["route", "startroute"] }
+    type: { type: "string", enum: ["route", "startroute"] },
+    updatedAt: {type: "string", format: "datetime"},
+    user: {type: "string"},
+    createdAt: {type: "string", format: "datetime"}
   },
   required: ["name", "type", "timelines"]
 };
