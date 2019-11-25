@@ -105,9 +105,9 @@ const schema = {
       type: "array"
     },
     type: { type: "string", enum: ["route", "startroute"] },
-    updatedAt: { type: "string", format: "datetime" },
+    updatedAt: { type: "string", format: "date-time" },
     user: { type: "string" },
-    createdAt: { type: "string", format: "datetime" }
+    createdAt: { type: "string", format: "date-time" }
   },
   required: ["name", "type", "timelines"]
 };
