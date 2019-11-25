@@ -55,6 +55,7 @@ export interface IAttachFileBody {
   until?: string;
 }
 
+/* tslint:disable */
 const schema = {
   additionalProperties: false,
   properties: {
@@ -104,12 +105,13 @@ const schema = {
       type: "array"
     },
     type: { type: "string", enum: ["route", "startroute"] },
-    updatedAt: {type: "string", format: "datetime"},
-    user: {type: "string"},
-    createdAt: {type: "string", format: "datetime"}
+    updatedAt: { type: "string", format: "datetime" },
+    user: { type: "string" },
+    createdAt: { type: "string", format: "datetime" }
   },
   required: ["name", "type", "timelines"]
 };
+/* tslint:enable */
 
 let ajv: fromAjv.Ajv;
 let validator: fromAjv.ValidateFunction;
