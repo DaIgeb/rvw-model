@@ -5,6 +5,7 @@ export const names = {
 
 export interface IList {
   id: string;
+  year: number;
   seasonStart: string;
   seasonEnd: string;
   evneningStart: string;
