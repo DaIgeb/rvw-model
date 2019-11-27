@@ -8,8 +8,8 @@ export interface IList {
   year: number;
   seasonStart: string;
   seasonEnd: string;
-  evneningStart: string;
-  evneningEnd: string;
+  eveningStart: string;
+  eveningEnd: string;
   events: IEvent[];
   routes: string[];
 }
